@@ -1,62 +1,39 @@
-# PMOVES.AI Integration Guide for AgentGym
+# PMOVES.AI Integration Dossier
 
-## Integration Overview
+_Last updated: 
 
-AgentGym provides 14+ diverse RL training environments (WebShop, WebArena, ALFWorld, SciWorld, BabyAI, etc.) for evaluating and evolving LLM-based agents. Within PMOVES.AI, it serves as the offline agent evaluation and self-evolution framework.
+## Module
+- Name: $t
+- Path: $t
 
-## Service Details
+## Purpose in PMOVES.AI
+- Describe the role of this submodule in the PMOVES stack (runtime, agent, UI, data, or tooling).
 
-- **Name:** AgentGym
-- **Slug:** agentgym
-- **Tier:** worker
-- **Port:** Per-environment (HTTP APIs per agentenv server)
-- **Health Check:** Per-environment endpoint
-- **NATS Enabled:** False
-- **GPU Enabled:** True (for model training/inference)
+## PMOVES Overlay Surface
+- pmoves-integrations/ overlay path (if used): _TBD_
+- Compose/profile wiring: _TBD_
+- Env/secret inputs: _TBD_
+- Auth/JWT requirements: _TBD_
 
-## Integration Points
+## Contracts and Topics
+- NATS subjects (if any): _TBD_
+- Supabase schema/tables touched (if any): _TBD_
+- MCP endpoints/skills (if any): _TBD_
 
-### Agent Evaluation Pipeline
-- AgentGym environments are used by Agent Zero and Archon for offline agent quality assessment
-- Trajectory datasets (AgentTraj-L) feed into Hi-RAG for knowledge retrieval training data
-- AgentEvol self-evolution method can be triggered via NATS research events
+## Boot Order and Health
+- Bring-up dependency order: _TBD_
+- Health endpoints: _TBD_
+- Smoke targets: _TBD_
 
-### Data Flow
-```
-AgentGym Environments → Agent Trajectories → Hi-RAG Indexing
-                      → AgentEval Benchmarks → Prometheus Metrics
-```
+## Hardening Notes
+- Image pinning / provenance: _TBD_
+- Secrets source (*_FILE / vault / GH env): _TBD_
+- Network/security policy constraints: _TBD_
 
-## Next Steps
+## Source Documentation
+- Upstream docs entrypoint: README.md
+- PMOVES docs index reference: pmoves/docs/SUBMODULE_DOCS_DOSSIER.md
 
-### 1. Customize Environment Variables
-
-Edit the following files with your service-specific values:
-
-- `env.shared` - Base environment configuration
-- `env.tier-worker` - WORKER tier specific configuration
-
-### 2. Integrate Health Check
-
-Each agentenv server exposes HTTP endpoints:
-- `POST /createEnv` - Create environment instance
-- `POST /observation` - Get current observation
-- `POST /step` - Take action in environment
-
-### 3. Test Integration
-
-```bash
-# Verify environment server
-curl http://localhost:<ENV_PORT>/createEnv
-
-# Verify PMOVES environment variables loaded
-docker compose exec agentgym env | grep PMOVES
-```
-
-## Files Created
-
-- `PMOVES.AI_INTEGRATION.md` - This integration guide
-
-## Support
-
-For questions or issues, see the PMOVES.AI documentation.
+## Owner / Audit
+- Owning lane: _TBD_
+- Last integration audit run: _TBD_
